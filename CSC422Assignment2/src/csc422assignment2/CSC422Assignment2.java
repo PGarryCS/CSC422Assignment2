@@ -7,12 +7,11 @@
 
 //Updates:
 //
-// only support 5 entries
-// valid age is 0-20
+// only support 5 entries (capacity)
+// valid age is 0-20 (in pet.java)
 // input accepts two values, name and age
 // ID input by user must be an index of the array
 //
-// case sensitive search
 // separate files
 // array to arrayList
 //
@@ -23,14 +22,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CSC422Assignment2
 {
 
 //globals
-    static int CAPACITY = 5;
-    static Pet[] pets = new Pet[100];
+    static int capacity = 5;
+    static ArrayList<Pet> pets = new ArrayList<Pet>();
+    //static Pet[] pets = new Pet[100];
     static Scanner s = new Scanner(System.in);
     static int petCount = 0;
     static File petsFile = new File("pets.txt");
@@ -59,7 +60,7 @@ public class CSC422Assignment2
                         removePet();
                     } catch (InvalidIdException e)
                     {
-                        System.out.println("InvalidIdException: ID does not exist.");
+                        System.out.println("ID does not exist.");
                     }
                     break;
                 case 4:
@@ -103,7 +104,7 @@ public class CSC422Assignment2
         {
             for (int i = 0; i < petCount; i++)
             {
-                writeToPets.println(pets[i].getName() + " " + pets[i].getAge());
+                writeToPets.println(pets.get(i).getName() + " " + pets.get(i).getAge());
             }
             writeToPets.close();
         } catch (IOException ex)
@@ -152,7 +153,7 @@ public class CSC422Assignment2
 
     private static void addPet(String name, int age) throws FullDatabaseException
     {
-        if (petCount == CAPACITY)
+        if (petCount == capacity)
         {
             throw new FullDatabaseException("");
         } else
@@ -161,7 +162,7 @@ public class CSC422Assignment2
 //InvalidAgeException thrown when age is outside of range
             try
             {
-                pets[petCount] = new Pet(name, age);
+                pets.add(new Pet(name, age));
             } catch (InvalidAgeException e1)
             {
                 System.out.println(e1);
@@ -197,7 +198,7 @@ public class CSC422Assignment2
         printTableHeader();
         for (int i = 0; i < petCount; i++)
         {
-            printTableRow(i, pets[i].getName(), pets[i].getAge());
+            printTableRow(i, pets.get(i).getName(), pets.get(i).getAge());
         }
         printTableFooter(petCount);
     }
@@ -217,12 +218,12 @@ public class CSC422Assignment2
         {
             System.out.println();
 //print to user which pet was removed
-            System.out.println(pets[removeChoice].getName() + " " + pets[removeChoice].getAge() + " is removed.");
+            System.out.println(pets.get(removeChoice).getName() + " " + pets.get(removeChoice).getAge() + " is removed.");
 //copy later items in array up one index
             for (; removeChoice < petCount - 1; removeChoice++)
             {
-                pets[removeChoice].setName(pets[removeChoice + 1].getName());
-                pets[removeChoice].setAge(pets[removeChoice + 1].getAge());
+                pets.get(removeChoice).setName(pets.get(removeChoice + 1).getName());
+                pets.get(removeChoice).setAge(pets.get(removeChoice + 1).getAge());
             }
             petCount--;
         }

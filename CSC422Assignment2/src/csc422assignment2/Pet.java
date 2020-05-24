@@ -10,7 +10,7 @@ public class Pet
 
     Pet(String objectName, int objectAge) throws InvalidAgeException
     {
-        if (objectAge < 0 || objectAge >= 150)
+        if (objectAge < 0 || objectAge >= 20)
         {
             throw new InvalidAgeException("error: " + objectAge + " is not a valid age.");
         } else
