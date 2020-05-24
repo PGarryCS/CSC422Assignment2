@@ -2,4 +2,4 @@ Kitty 7
 Blue 4
 Fido 3
 Hunter 18
-Hunter 18
+Fido 13
